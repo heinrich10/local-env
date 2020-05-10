@@ -15,9 +15,8 @@ There are plenty of ways to run kubernetes locally. However, nothing beats runni
 3. ssh into the master `vagrant ssh master` to run `kubectl` commands
 
 ### Configuration
-
-VM_IMAGE = "ubuntu/focal64"
-NODES = 2
+- VM_IMAGE = "ubuntu/focal64"
+- NODES = 2
 
 ### Assumptions
 
