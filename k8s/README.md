@@ -4,6 +4,10 @@ There are plenty of ways to run kubernetes locally. However, nothing beats runni
 
 ## Setup
 
+### Prerequisite
+- Vagrant
+- Ansible
+
 ### Setup
 
 1. cd into `k8s` directory
@@ -18,7 +22,7 @@ NODES = 2
 ### Assumptions
 
 - You should have plenty of RAM, recommended is 2GB per machine.
-- This works on `VirtualBox` and `VMWare`.
+- This works on `VirtualBox`.
 - Too bad `--parallel` does not work on both the providers, otherwise, provisioning may be faster.
 
 ### Tips
