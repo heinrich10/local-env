@@ -1,0 +1,57 @@
+---
+# tasks file for mongoDB setup
+
+- name: copy repo file
+  copy:
+    src: mongodb-org-4.2.repo
+    dest: /etc/yum.repos.d/mongodb-org-4.2.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: update yum repo
+  yum:
+    name: "*"
+    state: latest
+
+- name: install mongoDB
+  yum:
+    state: present
+    install_weak_deps: true
+    name:
+      - mongodb-org-4.2.16
+      - mongodb-org-server-4.2.16
+      - mongodb-org-shell-4.2.16
+      - mongodb-org-mongos-4.2.16
+      - mongodb-org-tools-4.2.16
+
+- name: copy config file
+  copy:
+    src: mongo.conf
+    dest: /etc/mongod.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart mongodb
+
+- name: Ensure mongodb is running and and enabled to start automatically on reboots
+  systemd:
+    name: mongod
+    enabled: yes
+    state: started
+
+- name: Create a replicaset and use a custom priority for each member
+  community.mongodb.mongodb_replicaset:
+    login_host: 192.168.10.10
+    # login_user: admin
+    # login_password: admin
+    replica_set: rs0
+    members:
+    - host: "192.168.10.10"
+      priority: 1
+    - host: "192.168.10.21"
+      priority: 0.5
+    - host: "192.168.10.22"
+      priority: 0.5
+  # when: groups.mongod.index(inventory_hostname) == 0

@@ -1,0 +1,6 @@
+---
+- name: install
+  hosts: nodes
+  become: true
+  roles:
+    - ansible
