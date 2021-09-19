@@ -20,6 +20,9 @@
 ### Configuration
 - VM_IMAGE = "centos/8"
 - NODES = 2
+- Node ips are hardcoded
+  - Master is 192.168.10.10
+  - Nodes are 192.168.10.21 and so on
 
 ### Assumptions
 
